@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nigeria Weather App</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 25px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.7s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 { text-align: center; margin-bottom: 20px; }
+
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      margin-right: 70%;
+    }
+
+    select, input { background: white; color: black; }
+    button {
+      background: #ff8800; color: white; cursor: pointer; font-weight: bold;
+    }
+    button:hover { background: #e07900; }
+
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    #result img { width: 90px; }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>🌦 Nigeria Weather App</h2>
+
+    <!-- DROPDOWN STATES -->
+    <label>Select State:</label>
+    <select id="city">
+      <option value="">-- Choose a State --</option>
+      <option value="abia" data-lat="5.4527" data-lon="7.5248">Abia</option>
+      <option value="adamawa" data-lat="10.2703" data-lon="13.2700">Adamawa</option>
+      <option value="akwa_ibom" data-lat="4.9057" data-lon="7.8537">Akwa Ibom</option>
+      <option value="anambra" data-lat="6.2209" data-lon="7.0670">Anambra</option>
+      <option value="bauchi" data-lat="11.6804" data-lon="10.1900">Bauchi</option>
+      <option value="bayelsa" data-lat="4.7719" data-lon="6.0699">Bayelsa</option>
+      <option value="benue" data-lat="7.1907" data-lon="8.1291">Benue</option>
+      <option value="borno" data-lat="11.8846" data-lon="13.2904">Borno</option>
+      <option value="cross_river" data-lat="5.8702" data-lon="8.5988">Cross River</option>
+      <option value="delta" data-lat="5.5320" data-lon="5.8987">Delta</option>
+      <option value="ebonyi" data-lat="6.3249" data-lon="8.1137">Ebonyi</option>
+      <option value="edo" data-lat="6.6342" data-lon="5.9304">Edo</option>
+      <option value="ekiti" data-lat="7.7180" data-lon="5.3110">Ekiti</option>
+      <option value="enugu" data-lat="6.4402" data-lon="7.4940">Enugu</option>
+      <option value="gombe" data-lat="10.2797" data-lon="11.1673">Gombe</option>
+      <option value="imo" data-lat="5.5720" data-lon="7.0588">Imo</option>
+      <option value="jigawa" data-lat="12.2280" data-lon="9.5616">Jigawa</option>
+      <option value="kaduna" data-lat="10.5105" data-lon="7.4165">Kaduna</option>
+      <option value="kano" data-lat="11.7470" data-lon="8.5241">Kano</option>
+      <option value="katsina" data-lat="12.9800" data-lon="7.6000">Katsina</option>
+      <option value="kebbi" data-lat="12.4534" data-lon="4.1970">Kebbi</option>
+      <option value="kogi" data-lat="7.8023" data-lon="6.7333">Kogi</option>
+      <option value="kwara" data-lat="8.9840" data-lon="4.5624">Kwara</option>
+      <option value="lagos" data-lat="6.5244" data-lon="3.3792">Lagos</option>
+      <option value="nasarawa" data-lat="8.5380" data-lon="8.3220">Nasarawa</option>
+      <option value="niger" data-lat="9.081999" data-lon="6.5570">Niger</option>
+      <option value="ogun" data-lat="6.9098" data-lon="3.2584">Ogun</option>
+      <option value="ondo" data-lat="7.2507" data-lon="5.2105">Ondo</option>
+      <option value="osun" data-lat="7.5629" data-lon="4.5200">Osun</option>
+      <option value="oyo" data-lat="7.8400" data-lon="3.9300">Oyo</option>
+      <option value="plateau" data-lat="9.2182" data-lon="9.5177">Plateau</option>
+      <option value="rivers" data-lat="4.8581" data-lon="6.9209">Rivers</option>
+      <option value="sokoto" data-lat="13.0667" data-lon="5.2333">Sokoto</option>
+      <option value="taraba" data-lat="7.9861" data-lon="10.9647">Taraba</option>
+      <option value="yobe" data-lat="12.2939" data-lon="11.4390">Yobe</option>
+      <option value="zamfara" data-lat="12.1704" data-lon="6.6610">Zamfara</option>
+    </select>
+
+    <!-- MANUAL COORDINATES -->
+    <label>Or enter coordinates:</label>
+    <input id="lat" type="text" placeholder="Latitude">
+    <input id="lon" type="text" placeholder="Longitude">
+
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div id="result"></div>
+  </div>
+  <script src="index.js"></script>
+
+</body>
+</html>
