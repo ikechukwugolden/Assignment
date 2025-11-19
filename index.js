@@ -7,23 +7,14 @@ async function getWeather() {
   const citySelect = document.getElementById("city");
   const selected = citySelect.options[citySelect.selectedIndex];
 
-  const inputLat = document.getElementById("lat").value.trim();
-  const inputLon = document.getElementById("lon").value.trim();
-
-  let lat, lon;
-
-  // Manual coordinates
-  if (inputLat && inputLon) {
-    lat = inputLat;
-    lon = inputLon;
-  }
+  
   // Dropdown selected
-  else if (selected.value) {
+   if (selected.value) {
     lat = selected.getAttribute("data-lat");
     lon = selected.getAttribute("data-lon");
   } 
   else {
-    alert("Select a state OR enter coordinates!");
+    alert("Select OR choose a state!");
     return;
   }
 
