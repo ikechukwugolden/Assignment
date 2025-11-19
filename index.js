@@ -15,7 +15,7 @@ async function getWeather() {
   } 
   else {
     alert("Select OR choose a state!");
-    return;
+    return;           
   }
 
   const API = "7e3a513d73a09143b3706a800f27e78e";
@@ -30,6 +30,7 @@ async function getWeather() {
       return;
     }
 
+    
     const icon = data.weather[0].icon;
     const description = data.weather[0].description;
     const cityName = data.name || "Unknown City";
